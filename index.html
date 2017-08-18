@@ -41,12 +41,27 @@
       width: 130px;
       margin-left: 200px;
     }
+
+    #errorMessage {
+      color: red;
+      font-size: 90%;
+    }
+
+    #successMessage {
+      color: green;
+      font-size: 90%;
+      display: none;
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
 
 <body>
   <div id="wrapper">
+    <div id="successMessage">Success!</div>
+    <div id="errorMessage">
+    </div>
     <div class="form-element">
       <label for="email">Email</label>
       <input type="text" name="email" id="email" placeholder="example@example.com">
@@ -73,8 +88,30 @@
       var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       return regex.test(email);
     }
+
     $("#submitButton").click(function () {
       var errorMessage = "";
+      var fieldMissing = "";
+
+      if ($("#email").val() == "") {
+        fieldMissing += "<br/>Email";
+      }
+
+      if ($("#phone").val() == "") {
+        fieldMissing += "<br/>Telephone";
+      }
+
+      if ($("#password").val() == "") {
+        fieldMissing += "<br/>Password";
+      }
+
+      if ($("#passwordConfirm").val() == "") {
+        fieldMissing += "<br/>Confirm Password";
+      }
+
+      if (fieldMissing != "") {
+        errorMessage += "<p>The following field(s) are missing:" + fieldMissing + "</p>";
+      }
 
       if (isEmail($("#email").val()) == false) {
         errorMessage += "<p>Your email address is not valid</p>";
@@ -87,7 +124,15 @@
       if ($("#password").val() != $("#passwordConfirm").val()) {
         errorMessage += "<p>Your passwords do not match</p>";
       }
-      alert(errorMessage);
+      if (errorMessage != "") {
+        $("#errorMessage").html(errorMessage);
+      }
+      else {
+        $("#successMessage").show();
+        $("#errorMessage").hide();
+
+      }
+
     });
   </script>
 </body>
