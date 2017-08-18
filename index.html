@@ -68,7 +68,27 @@
     </div>
   </div>
   <script type="text/javascript">
+    //https://stackoverflow.com/questions/2507030/email-validation-using-jquery
+    function isEmail(email) {
+      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      return regex.test(email);
+    }
+    $("#submitButton").click(function () {
+      var errorMessage = "";
 
+      if (isEmail($("#email").val()) == false) {
+        errorMessage += "<p>Your email address is not valid</p>";
+      }
+
+      if ($.isNumeric($("#phone").val()) == false) {
+        errorMessage += "<p>Your phone number is not numeric</p>";
+      }
+
+      if ($("#password").val() != $("#passwordConfirm").val()) {
+        errorMessage += "<p>Your passwords do not match</p>";
+      }
+      alert(errorMessage);
+    });
   </script>
 </body>
 
