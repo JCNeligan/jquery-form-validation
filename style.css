@@ -46,6 +46,14 @@ label {
 }
 
 .feedback {
-  height: 20px;
+  height: 30px;
   margin-left: 200px;
+}
+
+.negative {
+  color: red;
+}
+
+.positive {
+  color: green;
 }

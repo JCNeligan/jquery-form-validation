@@ -8,7 +8,20 @@ function clearInput(input) {
     $(this).attr("placeholder", $(this).data("holder"));
   })
 
-}
+};
+
+function changeMessageStyle(input) {
+  if ($(input).hasClass("positve")) {
+    ($(input).addClass("negative"));
+    ($(input).removeClass("positive"));
+  }
+  else {
+    if ($(input).hasClass("negative")) {
+      ($(input).addClass("positve"));
+      ($(input).removeClass("negative"));
+    }
+  }
+};
 
 clearInput("#email");
 clearInput("#phone");
@@ -25,60 +38,58 @@ function isPhone(phone) {
   return regex.test(phone);
 }
 
-
-
-
-
-
+// email validation
 $("#submitButton").click(function () {
-
   if ($("#email").val() == "") {
     ($("#emailMessage").html("Email is required"));
+    changeMessageStyle("#emailMessage");
   }
   else if (isEmail($("#email").val()) == false) {
     ($("#emailMessage").html("Your email address is not valid"));
+    changeMessageStyle("#emailMessage");
   }
   else {
     ($("#emailMessage").html("Success!"));
+    changeMessageStyle("#emailMessage");
   }
 });
 
+// phone validation
 $("#submitButton").click(function () {
   if ($("#phone").val() == "") {
     ($("#phoneMessage").html("Phone is required"));
-  }
-  else if ($.isNumeric($("#phone").val()) == false) {
-    ($("#phoneMessage").html("Your phone number is not numeric"));
+    ($("#phoneMessage").addClass("negative"));
   }
   else if (isPhone($("#phone").val()) == false) {
-    ($("#phoneMessage").html("Must be in the form (xxx)-xxx-xxxx"))
+    ($("#phoneMessage").html("Must be in the form (xxx)-xxx-xxxx"));
+    ($("#phoneMessage").addClass("negative"));
   }
   else {
     ($("#phoneMessage").html("Success!"));
+    ($("#phoneMessage").addClass("positive"));
   }
 });
 
-
-
-  // if ($("#password").val() == "") {
-  //   fieldMissing += "<br/>Password";
-  // }
-
-  // if ($("#passwordConfirm").val() == "") {
-  //   fieldMissing += "<br/>Confirm Password";
-  // }
-
-  // if (fieldMissing != "") {
-  //   errorMessage += "<p>The following field(s) are missing:" + fieldMissing + "</p>";
-  // }
-
-
-
-
-
-//   if ($("#password").val() != $("#passwordConfirm").val()) {
-//     ($("#passwordMessage").html("<p>Your passwords do not match</p>"));
-//   }
-
-
-// });
+// password validation
+$("#submitButton").click(function () {
+  if ($("#password").val() == "") {
+    ($("#passwordMessage").html("Please enter a password"));
+    ($("#passwordMessage").addClass("negative"));
+  }
+  else if ($("#password").val().length < 6) {
+    ($("#passwordMessage").html("Password must be at least 6 characters"));
+    ($("#passwordMessage").addClass("negative"));
+  }
+  else if ($("#passwordConfirm").val() == "") {
+    ($("#passwordMessage").html("Please confirm password"));
+    ($("#passwordMessage").addClass("negative"));
+  }
+  else if ($("#password").val() != $("#passwordConfirm").val()) {
+    ($("#passwordMessage").html("Your passwords do not match"));
+    ($("#passwordMessage").addClass("negative"));
+  }
+  else {
+    ($("#passwordMessage").html("Success!"));
+    ($("#passwordMessage").addClass("positive"));
+  }
+});
