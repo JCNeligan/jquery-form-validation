@@ -10,17 +10,14 @@ function clearInput(input) {
 
 };
 
-function changeMessageStyle(input) {
-  if ($(input).hasClass("positve")) {
-    ($(input).addClass("negative"));
-    ($(input).removeClass("positive"));
-  }
-  else {
-    if ($(input).hasClass("negative")) {
-      ($(input).addClass("positve"));
-      ($(input).removeClass("negative"));
-    }
-  }
+function posToNeg(input) {
+  ($(input).addClass("negative"));
+  ($(input).removeClass("positive"));
+};
+
+function negToPos(input) {
+  ($(input).addClass("positive"));
+  ($(input).removeClass("negative"));
 };
 
 clearInput("#email");
@@ -42,15 +39,15 @@ function isPhone(phone) {
 $("#submitButton").click(function () {
   if ($("#email").val() == "") {
     ($("#emailMessage").html("Email is required"));
-    changeMessageStyle("#emailMessage");
+    posToNeg("#emailMessage");
   }
   else if (isEmail($("#email").val()) == false) {
     ($("#emailMessage").html("Your email address is not valid"));
-    changeMessageStyle("#emailMessage");
+    posToNeg("#emailMessage");
   }
   else {
     ($("#emailMessage").html("Success!"));
-    changeMessageStyle("#emailMessage");
+    negToPos("#emailMessage");
   }
 });
 
@@ -58,15 +55,15 @@ $("#submitButton").click(function () {
 $("#submitButton").click(function () {
   if ($("#phone").val() == "") {
     ($("#phoneMessage").html("Phone is required"));
-    ($("#phoneMessage").addClass("negative"));
+    posToNeg("#phoneMessage");
   }
   else if (isPhone($("#phone").val()) == false) {
     ($("#phoneMessage").html("Must be in the form (xxx)-xxx-xxxx"));
-    ($("#phoneMessage").addClass("negative"));
+    posToNeg("#phoneMessage");
   }
   else {
     ($("#phoneMessage").html("Success!"));
-    ($("#phoneMessage").addClass("positive"));
+    negToPos("#phoneMessage");
   }
 });
 
@@ -74,22 +71,22 @@ $("#submitButton").click(function () {
 $("#submitButton").click(function () {
   if ($("#password").val() == "") {
     ($("#passwordMessage").html("Please enter a password"));
-    ($("#passwordMessage").addClass("negative"));
+    posToNeg("#passwordMessage");
   }
   else if ($("#password").val().length < 6) {
     ($("#passwordMessage").html("Password must be at least 6 characters"));
-    ($("#passwordMessage").addClass("negative"));
+    posToNeg("#passwordMessage");
   }
   else if ($("#passwordConfirm").val() == "") {
     ($("#passwordMessage").html("Please confirm password"));
-    ($("#passwordMessage").addClass("negative"));
+    posToNeg("#passwordMessage");
   }
   else if ($("#password").val() != $("#passwordConfirm").val()) {
     ($("#passwordMessage").html("Your passwords do not match"));
-    ($("#passwordMessage").addClass("negative"));
+    posToNeg("#passwordMessage");
   }
   else {
     ($("#passwordMessage").html("Success!"));
-    ($("#passwordMessage").addClass("positive"));
+    negToPos("#passwordMessage");
   }
 });
